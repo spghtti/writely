@@ -1,0 +1,31 @@
+#root {
+  width: 100vw;
+  overflow-x: hidden;
+  display: flex;
+}
+.textbox-wrapper {
+  display: block;
+  padding: 0 4rem;
+  outline: 1px solid red;
+  justify-content: center;
+  /* align-items: center; */
+  /* padding: 0 2rem; */
+  margin: auto;
+  flex-grow: 1;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+#editor {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.sidebar-wrapper {
+  outline: 1px solid red;
+  flex-grow: 1;
+  max-width: 300px;
+}
+.logo-wrapper {
+  /* position: fixed; */
+  height: 100vh;
+}

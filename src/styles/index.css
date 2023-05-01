@@ -29,6 +29,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #f6f6f6;
 }
 
 h1 {
@@ -54,7 +55,15 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-
+textarea {
+  resize: none;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  min-height: 500px;
+  max-height: 2000px;
+}
+textarea:focus {
+  outline: none;
+}
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
