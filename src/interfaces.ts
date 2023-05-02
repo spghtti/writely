@@ -1,12 +1,12 @@
 export interface IAnalysis {
   words: number;
   timeToRead: number;
-  readability: number;
-  writingLevel: string;
+  readability: string;
+  readingLevel: number;
   repeatedWords: string[];
 }
 
 export interface IAnalysisContext {
-  state: IAnalysis;
-  setState: (newAnalysis: IAnalysis) => void;
+  analysis: IAnalysis;
+  setAnalysis: (newAnalysis: IAnalysis) => void;
 }
