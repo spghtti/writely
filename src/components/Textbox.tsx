@@ -52,7 +52,8 @@ function getUsedWords(text: string) {
   },
   {});
 
-  console.log(result);
+  if (Object.keys(result).length === 1 && Object.keys(result)[0] === '')
+    return [];
 
   return Object.keys(result)
     .sort(function (a, b) {
@@ -67,6 +68,7 @@ function getUsedWords(text: string) {
 // }, {});
 
 function getWordCount(text: string) {
+  if (text.split(' ').length === 1 && text.split(' ')[0] === '') return 0;
   return text.split(' ').length;
 }
 
@@ -105,6 +107,7 @@ function Textbox() {
     <div>
       <textarea id="editor" name="story"></textarea>
       <button
+        className="run-button"
         onClick={() => {
           context.setAnalysis(
             analyzeText(
