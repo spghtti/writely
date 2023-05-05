@@ -17,6 +17,14 @@ function Sidebar() {
         </li>
         <li>
           <div className="sidebar-item-container">
+            <span className="sidebar-item-headline">Sentences:</span>{' '}
+            <span className="sidebar-item-metric">
+              {context.analysis.sentences}
+            </span>
+          </div>
+        </li>
+        <li>
+          <div className="sidebar-item-container">
             <span className="sidebar-item-headline"> Time to read: </span>{' '}
             <span className="sidebar-item-metric">
               {context.analysis.timeToRead} min.
@@ -26,25 +34,25 @@ function Sidebar() {
         <li>
           <div className="sidebar-item-container">
             <span className="sidebar-item-headline">Readability:</span>{' '}
-            <span className="sidebar-item-metric">
+            <span className="sidebar-item-metric" id="readability">
               {context.analysis.readability}
             </span>
           </div>
         </li>
         <li>
           <div className="sidebar-item-container">
-            <span className="sidebar-item-headline">Reading level:</span>{' '}
+            <span className="sidebar-item-headline">Grade level:</span>{' '}
             <span className="sidebar-item-metric">
               {context.analysis.readingLevel}
             </span>
           </div>
         </li>
-        <div className="sidebar-item-container">
+        <div className="sidebar-item-container" id="repeated-words">
+          <span className="sidebar-item-headline">Often used words:</span>
           <ul>
-            <span className="sidebar-item-headline">Repeated words:</span>
             {context.analysis.repeatedWords.map((word) => (
-              <li key={word}>
-                <div className="repeated-word-container">{word}</div>
+              <li key={word} className="repeated-word-container">
+                <div className="repeated-word">{word}</div>
               </li>
             ))}
           </ul>

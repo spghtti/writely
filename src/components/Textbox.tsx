@@ -59,7 +59,7 @@ function getUsedWords(text: string) {
     .sort(function (a, b) {
       return result[b] - result[a];
     })
-    .slice(0, 5);
+    .slice(0, 8);
 }
 
 // let occurrences = arr.reduce(function(obj, item) {
@@ -80,22 +80,49 @@ function getReadTime(wordCount: number) {
 }
 
 function getReadability(text: string) {
+  const div = document.getElementById('readability');
   const score = rs.fleschReadingEase(text);
-  if (score <= 29) return 'Very confusing';
-  if (score <= 49) return 'Difficult';
-  if (score <= 59) return 'Fairly difficult';
-  if (score <= 69) return 'Standard';
-  if (score <= 79) return 'Fairly easy';
-  if (score <= 89) return 'Easy';
+  if (div === null) return;
+  if (score <= 29) {
+    div.style.color = 'var(--very-confusing)';
+    return 'Very confusing';
+  }
+  if (score <= 49) {
+    div.style.color = 'var(--difficult)';
+    return 'Difficult';
+  }
+  if (score <= 59) {
+    div.style.color = 'var(--fairly-difficult)';
+    return 'Fairly difficult';
+  }
+  if (score <= 69) {
+    div.style.color = 'var(--standard)';
+    return 'Standard';
+  }
+  if (score <= 79) {
+    div.style.color = 'var(--fairly-easy)';
+    return 'Fairly Easy';
+  }
+  if (score <= 89) {
+    div.style.color = 'var(--easy)';
+    return 'Easy';
+  }
+  div.style.color = 'var(--very-easy)';
   return 'Very easy';
+}
+
+function getSentenceCount(text: string) {
+  return text.split('.').length - 1;
 }
 
 function analyzeText(text: string) {
   return {
-    words: getWordCount(text),
-    timeToRead: getReadTime(getWordCount(text)),
+    words: rs.lexiconCount(text),
+    sentences: getSentenceCount(text),
+    timeToRead: getReadTime(rs.lexiconCount(text)),
     readability: getReadability(text),
     readingLevel: rs.fleschKincaidGrade(text),
+    grade: rs.textStandard(text),
     repeatedWords: getUsedWords(text),
   };
 }
@@ -109,11 +136,13 @@ function Textbox() {
       <button
         className="run-button"
         onClick={() => {
-          context.setAnalysis(
-            analyzeText(
-              (document.getElementById('editor') as HTMLInputElement).value
-            )
-          );
+          if (document.getElementById('editor') !== null) {
+            context.setAnalysis(
+              analyzeText(
+                (document.getElementById('editor') as HTMLInputElement).value
+              )
+            );
+          }
         }}
       >
         Run
