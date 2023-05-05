@@ -24,9 +24,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["node"],
+    "types": ["node", "jest", "@types/jest"],
     "typeRoots": ["../node_modules/@types"]
   },
-  "include": ["src"],
+  "include": ["src", "__tests__"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

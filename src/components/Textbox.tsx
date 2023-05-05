@@ -120,8 +120,6 @@ function Textbox() {
     };
   }, [handleKeyPress]);
 
-  // cs
-
   useEffect(() => {
     const text = sessionStorage.getItem('text');
     const editor = document.getElementById('editor') as HTMLInputElement;
@@ -152,4 +150,4 @@ function Textbox() {
     </div>
   );
 }
-export default Textbox;
+export { Textbox, getSentenceCount, getReadTime, getUsedWords };
