@@ -37,11 +37,14 @@ function getUsedWords(text: string) {
     'was',
   ];
 
+  console.log(text);
+
   const normalizedText = text
     .toLowerCase()
     .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '')
     .replace(/\s{2,}/g, ' ')
-    .split(' ');
+    .trim()
+    .split(/\s+/);
 
   let result = normalizedText.reduce(function (
     obj: { [key: string]: number },
@@ -60,16 +63,6 @@ function getUsedWords(text: string) {
       return result[b] - result[a];
     })
     .slice(0, 8);
-}
-
-// let occurrences = arr.reduce(function(obj, item) {
-//   if (commonWords.indexOf(item) === -1) obj[item] = (obj[item] || 0) + 1;
-//   return obj;
-// }, {});
-
-function getWordCount(text: string) {
-  if (text.split(' ').length === 1 && text.split(' ')[0] === '') return 0;
-  return text.split(' ').length;
 }
 
 function getReadTime(wordCount: number) {
@@ -115,22 +108,29 @@ function getSentenceCount(text: string) {
   return text.split('.').length - 1;
 }
 
+function getGradeLevel(text: string) {
+  const result = rs.textStandard(text);
+  if (result == '-1th and 0th grade') return '';
+  if (result == '0th and 1st grade') return 'Below 1st';
+  return result;
+}
+
 function analyzeText(text: string) {
   return {
     words: rs.lexiconCount(text),
     sentences: getSentenceCount(text),
     timeToRead: getReadTime(rs.lexiconCount(text)),
     readability: getReadability(text),
-    readingLevel: rs.fleschKincaidGrade(text),
-    grade: rs.textStandard(text),
+    grade: getGradeLevel(text),
     repeatedWords: getUsedWords(text),
   };
 }
 
 function Textbox() {
   const context = useContext(Context);
+
   const handleKeyPress = useCallback((event: KeyboardEvent) => {
-    if (event.shiftKey && event.key === 'Enter')
+    if (event.shiftKey && event.key === 'Enter') {
       if (document.getElementById('editor') !== null) {
         context.setAnalysis(
           analyzeText(
@@ -138,6 +138,7 @@ function Textbox() {
           )
         );
       }
+    }
   }, []);
 
   useEffect(() => {
@@ -146,6 +147,16 @@ function Textbox() {
       document.removeEventListener('keydown', handleKeyPress);
     };
   }, [handleKeyPress]);
+
+  useEffect(() => {
+    if (document.getElementById('editor') !== null) {
+      context.setAnalysis(
+        analyzeText(
+          (document.getElementById('editor') as HTMLInputElement).value
+        )
+      );
+    }
+  }, []);
 
   return (
     <div>

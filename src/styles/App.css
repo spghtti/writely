@@ -40,6 +40,10 @@
   font-weight: 700;
   border: none;
 }
+.run-button:hover {
+  opacity: 0.8;
+  color: black;
+}
 .aside {
   display: block;
   font-style: italic;
