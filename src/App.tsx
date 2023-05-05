@@ -9,6 +9,8 @@ import './styles/App.css';
 function App() {
   const [analysis, setAnalysis] = useState<IAnalysis>(defaultState);
 
+  // Main app
+
   return (
     <>
       <div className="logo-wrapper">
