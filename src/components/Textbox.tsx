@@ -1,5 +1,5 @@
 import rs from 'text-readability';
-import { useContext, useEffect, useCallback } from 'react';
+import { useContext, useEffect, useCallback, ChangeEvent } from 'react';
 import { Context } from '../context';
 
 function getUsedWords(text: string) {
@@ -36,8 +36,6 @@ function getUsedWords(text: string) {
     'is',
     'was',
   ];
-
-  console.log(text);
 
   const normalizedText = text
     .toLowerCase()
@@ -126,6 +124,11 @@ function analyzeText(text: string) {
   };
 }
 
+function updateStorage(event: ChangeEvent<HTMLInputElement>) {
+  if (event.currentTarget)
+    sessionStorage.setItem('text', event.currentTarget.value);
+}
+
 function Textbox() {
   const context = useContext(Context);
 
@@ -148,19 +151,20 @@ function Textbox() {
     };
   }, [handleKeyPress]);
 
+  // cs
+
   useEffect(() => {
-    if (document.getElementById('editor') !== null) {
-      context.setAnalysis(
-        analyzeText(
-          (document.getElementById('editor') as HTMLInputElement).value
-        )
-      );
+    const text = sessionStorage.getItem('text');
+    const editor = document.getElementById('editor') as HTMLInputElement;
+    if (editor && text) editor.value = text;
+    if (document.getElementById('editor') !== null && text) {
+      context.setAnalysis(analyzeText(text));
     }
   }, []);
 
   return (
     <div>
-      <textarea id="editor" name="story"></textarea>
+      <textarea id="editor" name="editor" onChange={updateStorage}></textarea>
       <button
         className="run-button"
         onClick={() => {
