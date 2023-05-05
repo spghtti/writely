@@ -3,7 +3,7 @@ import { Context, defaultState } from './context';
 import Textbox from './components/Textbox';
 import Sidebar from './components/Sidebar';
 import quill from './assets/quill.png';
-import { IAnalysis, IAnalysisContext } from './interfaces';
+import { IAnalysis } from './interfaces';
 import './styles/App.css';
 
 function App() {
