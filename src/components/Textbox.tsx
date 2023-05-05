@@ -1,41 +1,10 @@
 import rs from 'text-readability';
 import { useContext, useEffect, useCallback, ChangeEvent } from 'react';
+import dictionary from '../dictionary.json';
 import { Context } from '../context';
 
 function getUsedWords(text: string) {
-  const commonWords = [
-    'the',
-    'be',
-    'to',
-    'of',
-    'and',
-    'a',
-    'in',
-    'that',
-    'have',
-    'I',
-    'you',
-    'we',
-    'he',
-    'him',
-    'she',
-    'her',
-    'they',
-    'them',
-    'us',
-    'it',
-    'for',
-    'on',
-    'with',
-    'as',
-    'but',
-    'by',
-    'from',
-    'or',
-    'an',
-    'is',
-    'was',
-  ];
+  const commonWords = dictionary.commonWords;
 
   const normalizedText = text
     .toLowerCase()
@@ -60,7 +29,7 @@ function getUsedWords(text: string) {
     .sort(function (a, b) {
       return result[b] - result[a];
     })
-    .slice(0, 8);
+    .slice(0, Math.round(normalizedText.length * 0.04 + 3));
 }
 
 function getReadTime(wordCount: number) {
@@ -124,7 +93,7 @@ function analyzeText(text: string) {
   };
 }
 
-function updateStorage(event: ChangeEvent<HTMLInputElement>) {
+function updateStorage(event: ChangeEvent<HTMLTextAreaElement>) {
   if (event.currentTarget)
     sessionStorage.setItem('text', event.currentTarget.value);
 }

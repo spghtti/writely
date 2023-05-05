@@ -48,7 +48,7 @@ function Sidebar() {
           </div>
         </li>
         <div className="sidebar-item-container" id="repeated-words">
-          <span className="sidebar-item-headline">Often used words:</span>
+          <span className="sidebar-item-headline">Often-used words:</span>
           <ul>
             {context.analysis.repeatedWords.map((word) => (
               <li key={word} className="repeated-word-container">
