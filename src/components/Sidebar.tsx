@@ -43,7 +43,7 @@ function Sidebar() {
           <div className="sidebar-item-container">
             <span className="sidebar-item-headline">Grade level:</span>{' '}
             <span className="sidebar-item-metric">
-              {context.analysis.readingLevel}
+              {context.analysis.grade}
             </span>
           </div>
         </li>

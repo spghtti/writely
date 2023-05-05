@@ -3,7 +3,6 @@ export interface IAnalysis {
   sentences: number;
   timeToRead: number;
   readability: string | undefined;
-  readingLevel: number;
   grade: string;
   repeatedWords: string[];
 }

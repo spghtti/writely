@@ -1,5 +1,5 @@
 import rs from 'text-readability';
-import { useContext } from 'react';
+import { useContext, useEffect, useCallback } from 'react';
 import { Context } from '../context';
 
 function getUsedWords(text: string) {
@@ -129,6 +129,23 @@ function analyzeText(text: string) {
 
 function Textbox() {
   const context = useContext(Context);
+  const handleKeyPress = useCallback((event: KeyboardEvent) => {
+    if (event.shiftKey && event.key === 'Enter')
+      if (document.getElementById('editor') !== null) {
+        context.setAnalysis(
+          analyzeText(
+            (document.getElementById('editor') as HTMLInputElement).value
+          )
+        );
+      }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyPress);
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [handleKeyPress]);
 
   return (
     <div>
@@ -145,8 +162,9 @@ function Textbox() {
           }
         }}
       >
-        Run
+        <span>Run</span>
       </button>
+      <span className="aside">Or press shift + enter</span>
     </div>
   );
 }

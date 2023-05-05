@@ -4,6 +4,7 @@
   display: flex;
   background-color: #ffffff;
   height: 100vh;
+  transition: all 0.5s;
 }
 .sidebar-wrapper,
 .textbox-wrapper {
@@ -31,8 +32,22 @@
 .run-button {
   margin-top: 10px;
   border: 1px solid gray;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #3dd9eb;
+  color: var(--standard);
+  width: 150px;
+  font-weight: 700;
+  border: none;
 }
-
+.aside {
+  display: block;
+  font-style: italic;
+  color: gray;
+  font-size: 0.8rem;
+  width: 100%;
+  margin-top: 0.5rem;
+}
 .sidebar-wrapper {
   /* border-left: 1px solid gray; */
   flex-grow: 1;
@@ -106,5 +121,11 @@
     max-width: none;
     margin: 0;
     padding: 0.5rem 0;
+  }
+  .run-button {
+    width: 100%;
+  }
+  .aside {
+    display: none;
   }
 }
